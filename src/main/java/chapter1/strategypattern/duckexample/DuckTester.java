@@ -2,6 +2,10 @@ package chapter1.strategypattern.duckexample;
 
 import com.google.inject.Guice;
 import com.google.inject.Inject;
+import com.google.inject.Injector;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import chapter1.strategypattern.duckexample.duck.Duck;
 import chapter1.strategypattern.duckexample.inject.Annotations.Wooden;
@@ -34,18 +38,15 @@ class DuckRunner {
     public void woodenDuckFly() {
         woodenDuck.fly();
     }
-
-    public static DuckRunner getDuckRunnerInstance() {
-        return Guice.createInjector(new DuckModule()).getInstance(DuckRunner.class);
-    }
 }
 
 public class DuckTester {
-
+    private static final Logger logger = LoggerFactory.getLogger(DuckTester.class);
     public static void main(String[] args) {
-        System.out.println("Welcome to the duck application");
+        logger.atInfo().log("Welcome to the duck pond!");
 
-        DuckRunner runner = DuckRunner.getDuckRunnerInstance();
+        Injector injector = Guice.createInjector(new DuckModule());
+        DuckRunner runner = injector.getInstance(DuckRunner.class);
 
         runner.mallardDuckQuack();
         runner.mallardDuckFly();
