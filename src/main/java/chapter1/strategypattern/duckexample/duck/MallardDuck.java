@@ -1,12 +1,10 @@
 package chapter1.strategypattern.duckexample.duck;
 
-import chapter1.strategypattern.duckexample.fly.NormalFly;
-import chapter1.strategypattern.duckexample.quack.NormalQuack;
+import com.google.inject.Inject;
 
 public class MallardDuck extends Duck {
+    @Inject
     public MallardDuck() {
         System.out.println("Mallard duck constructor");
-        setFlyBehavior(new NormalFly());
-        setQuackBehavior(new NormalQuack());
     }
 }
